@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 
 namespace HReel
 {
@@ -40,7 +38,7 @@ namespace HReel
                 Console.WriteLine(usageString);
                 return;
             }
-            else if (args[0] == "-help")
+            else if (args[0] == "-help" || args[0] == "-h")
             {
                 Console.WriteLine(usageString);
                 return;
@@ -144,9 +142,9 @@ namespace HReel
 
                 StringBuilder cmdText = new StringBuilder();
 
-                //cmdText.Append(" -an ");
                 cmdText.Append(" -i " + newClip.OutFile);
-                cmdText.Append(" -an -filter:v \"setpts=2.0*PTS\"");
+                cmdText.Append(" -an");
+                cmdText.Append(" -filter:v \"setpts=2.0*PTS\"");
                 cmdText.Append(" " + baseName + "-slomo.mp4");
 
                 Console.WriteLine("SloMo Gen: " + "ffmpeg.exe" + cmdText.ToString());
@@ -219,19 +217,13 @@ namespace HReel
                 // example cmdline: ffmpeg.exe -ss 00:00:15 -t 00:01:26 -i input.mp4 -acodec copy -vcodec copy output.mp4
                 // _CommandText = " -ss " + _StartTime + " -t " + _EndTime + " -i " + _InputFileName + " -acodec copy -vcodec copy " + outFileName;
 
-
                 if (SourceVideoPath != "")
                     _InputFileName = SourceVideoPath + "\\" + _InputFileName;
-                 //_InputFileName = Path.Combine(SourceVideoPath, _InputFileName);
 
                 if (ClipDestinationPath != "")
-                    outFileName = Path.Combine(ClipDestinationPath, outFileName);
-
-                // must convert endTime to duration ...
-
+                    outFileName =  ClipDestinationPath + "\\" + outFileName;
 
                 Clip newCut = new Clip { InputFileName = _InputFileName, StartTime = _StartTime, EndTime = _EndTime, OutFile = outFileName, SloMo = _SloMo, CommandText = "" };
-
 
                 string VerifyNewCutResults = VerifyNewCut(newCut);
 
@@ -315,13 +307,13 @@ namespace HReel
             string returnString = "";
 
             if (!File.Exists(newCut.InputFileName))
-                returnString = "Source video not found: " + newCut.InputFileName;
+                returnString += "Source video not found: " + newCut.InputFileName + Environment.NewLine;
 
             if (!CheckTimeParameter(newCut.StartTime))
-                returnString = "Invalid Start Time : " + newCut.StartTime;
+                returnString += "Invalid Start Time : " + newCut.StartTime + Environment.NewLine;
 
             if (!CheckTimeParameter(newCut.EndTime))
-                returnString = "Invalid End Time : " + newCut.EndTime;
+                returnString += "Invalid End Time : " + newCut.EndTime + Environment.NewLine;
 
             return returnString;
         }
@@ -329,7 +321,9 @@ namespace HReel
 
         static bool CheckTimeParameter(string inputString)
         {
-            // must be of the form: NN:NN:NN
+            // expecting NN:NN:NN
+            // integer checks on N occur elsewhere
+
             string[] parts = inputString.Split(':');
 
             if (parts.Length != 3)
@@ -380,13 +374,12 @@ namespace HReel
             sbUsage.Append("\r\n HReel.exe CutSheetFileName   file must be in .csv format: source video, start time, end time, \"yes\" for slomo");
             sbUsage.Append("\r\n");
             sbUsage.Append("\r\n Optional Parameters:");
-            sbUsage.Append("\r\n    -vpath PATH   set path to the source videl files; set to current directory when not specified");
-            sbUsage.Append("\r\n    -cpath PATH   set path for the generated video clip files; set to current directory when not specified");
-            sbUsage.Append("\r\n    -ofbn STRING   set the base for file names of generated video clip files: ofbn-N.mp4");
+            sbUsage.Append("\r\n    -vpath PATH    set path to the source videl files; set to current directory when not specified");
+            sbUsage.Append("\r\n    -cpath PATH    set path for the generated video clip files; set to current directory when not specified");
+            sbUsage.Append("\r\n    -ofbn STRING   set the base for file names of generated video clip files: STRING-N.mp4");
 
-            sbUsage.Append("\r\n  00:00:00 ");
-            //sbUsage.Append("\r\n just show me the ffmpeg command, don't execute said command");
-            sbUsage.Append("csv cutsheet format: ");
+            //sbUsage.Append("csv cutsheet format: ");
+            //sbUsage.Append("\r\n  00:00:00 ");
 
             return sbUsage.ToString();
         }
