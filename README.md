@@ -18,5 +18,5 @@ filename3.mp4,00:01:10,00:01:43,no
 filename3.mp4,00:01:10,00:01:43,yes
 ```
 
-lines begining with "#" will be ignored
+lines begining with "#" will be ignored \
 If the SloMotion field is missing, it is trated as "no"
