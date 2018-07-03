@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HReel", "HReel\HReel.csproj", "{AFEBBA52-7E0D-4F18-9F9A-ADA81C20719C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFEBBA52-7E0D-4F18-9F9A-ADA81C20719C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFEBBA52-7E0D-4F18-9F9A-ADA81C20719C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFEBBA52-7E0D-4F18-9F9A-ADA81C20719C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFEBBA52-7E0D-4F18-9F9A-ADA81C20719C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9AF88B8-26E4-47CE-BA77-02F83AF02C5A}
+	EndGlobalSection
+EndGlobal
