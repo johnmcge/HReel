@@ -32,7 +32,7 @@ Specifies the directory for the source video files. If not specified, HReel assu
 Specified the directory where all generated clips/movies will be written. Current directory is used when this option is not specified.
 
 **-obfn STRING**\
-Specified a base for the names of all clip/reel videos generated. For example, the following commandline
+Specifies a base for the names of all clip/reel videos generated. For example, the following commandline
 ```
 hreel.exe cutsheet.csv -obfn player1
 ```
