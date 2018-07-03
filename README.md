@@ -3,7 +3,7 @@ HReel is an ffmpeg wrapper to create highlight clips from video files. It simply
 HReel.exe only works when ffmpeg.exe is in the path. This program takes in a "cutsheet" (.csv file) that specifies a list of clips to generate from a set of source videos. Each line in the cutsheet specifies: source video, the start time of the clip to be created, endTime (within the source video), and whether or not a slow motion version of the video should also be created. Each of the (non-slomo) clips are also concatenated into single movie file as a highlight reel, in the order listed within the cutsheet.
 
 Cutsheet format:
-sourceVideoFile, startTime, entTime, SloMotion
+sourceVideoFile, startTime, endTime, SloMotion
 
 start and end times: "HH:MM:SS"
 
