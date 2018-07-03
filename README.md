@@ -29,7 +29,7 @@ optional parameters:
 Specifies the directory for the source video files. If not specified, HReel assumes source videos are in the current directory. If source videos are not all in the same directory, this option cannot be used, and the full path to source vidoes (not in the current directory) must be included as part of the filename in the cutsheet.
               
 **-cpath PATH**\
-Specified the directory where all generated clips/movies will be written. Current directory is used when this option is not specified.
+Specifies the directory where all generated clips/movies will be written. Current directory is used when this option is not specified.
 
 **-obfn STRING**\
 Specifies a base for the names of all clip/reel videos generated. For example, the following commandline
