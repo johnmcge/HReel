@@ -26,6 +26,7 @@ namespace HReel
         public static string ClipDestinationPath = "";
         public static string OutFileBaseName = "";
         public static string ConcatFileListFN = "concatFileList";
+        public static string FileExtension;
 
         static void Main(string[] args)
         {
@@ -98,9 +99,9 @@ namespace HReel
             string HighlightReelFN = "";
 
             if (OutFileBaseName == "")
-                HighlightReelFN = "HReel.mp4";
+                HighlightReelFN = "HReel" + FileExtension;
             else
-                HighlightReelFN = OutFileBaseName + "-Reel.mp4";
+                HighlightReelFN = OutFileBaseName + "-Reel" + FileExtension;
 
             string cmdText = " -f concat -safe 0 -i " + ConcatFileListFN + ".txt" + " -c copy " + HighlightReelFN;
             Console.WriteLine();
@@ -145,7 +146,7 @@ namespace HReel
                 cmdText.Append(" -i " + newClip.OutFile);
                 cmdText.Append(" -an");
                 cmdText.Append(" -filter:v \"setpts=2.0*PTS\"");
-                cmdText.Append(" " + baseName + "-slomo.mp4");
+                cmdText.Append(" " + baseName + "-slomo" + FileExtension);
 
                 Console.WriteLine("SloMo Gen: " + "ffmpeg.exe" + cmdText.ToString());
 
@@ -203,16 +204,34 @@ namespace HReel
                         _SloMo = true;
                 }
 
+
                 _InputFileName = parts[0]; 
                 _StartTime = parts[1];
                 _EndTime = parts[2];
 
+
+                int temp = _InputFileName.LastIndexOf(".");
+
+                string _fileExtension = _InputFileName.Substring(temp, (_InputFileName.Length - temp));
+                Console.WriteLine("File Extension: " + _fileExtension + Environment.NewLine);
+
+                if (i == 0) // first time through
+                    FileExtension = _fileExtension;
+                else
+                {
+                    if (FileExtension != _fileExtension)
+                    {
+                        Console.WriteLine("All files in cutsheet must be of the same type");
+                        return false;
+                    }
+                }
+
                 i++;
 
                 if (OutFileBaseName == "")
-                    outFileName = "Clip-" + i.ToString() + ".mp4";
+                    outFileName = "Clip-" + i.ToString() + FileExtension;
                 else
-                    outFileName = OutFileBaseName + "-" + i.ToString() + ".mp4";
+                    outFileName = OutFileBaseName + "-" + i.ToString() + FileExtension;
 
                 // example cmdline: ffmpeg.exe -ss 00:00:15 -t 00:01:26 -i input.mp4 -acodec copy -vcodec copy output.mp4
                 // _CommandText = " -ss " + _StartTime + " -t " + _EndTime + " -i " + _InputFileName + " -acodec copy -vcodec copy " + outFileName;
